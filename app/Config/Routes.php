@@ -11,3 +11,5 @@ $routes->get('user', 'Users::index');
 $routes->get('user/create', 'Users::create');
 $routes->get('user/(:any)', 'Users::detail/$1');
 $routes->post('user/save', 'Users::save');
+$routes->post('user/createAccount', 'Users::createAccount');
+$routes->post('user/changePassword', 'Users::changePassword');

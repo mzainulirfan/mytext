@@ -66,8 +66,65 @@ class Users extends BaseController
         ];
         return view('users/detail', $data);
     }
-    public function createAccount($userId)
+    public function createAccount()
     {
-        
+        $userId = $this->request->getVar('user_id');
+        $email = $this->request->getVar('email');
+        $password = $this->request->getVar('password');
+        $username = $this->request->getVar('user_username');
+
+        $validatonRules = [
+            'email' => 'required|valid_email',
+            'password' => 'required|max_length[255]|min_length[3]',
+            'confirmPassword' => 'required|max_length[255]|matches[password]',
+        ];
+
+        $data = [
+            'account_user_id' => $userId,
+            'account_email' => $email,
+            'account_password' => password_hash($password, PASSWORD_DEFAULT),
+        ];
+        if (!$this->validate($validatonRules)) {
+            session()->setFlashdata('errors', $this->validator->listErrors());
+            return redirect()->to('user/' . $username)->withInput()->with('validation', $this->validator);
+        }
+
+        $this->userAccountModel->save($data);
+
+        // Simpan data user
+        $dataUser = [
+            'user_id' => $userId,
+            'is_user_account' => 1
+        ];
+        $this->userModel->save($dataUser);
+
+        // Set pesan sukses
+        session()->setFlashdata('success', 'Akun telah berhasil dibuat!');
+
+        // Redirect ke halaman lain setelah pembuatan akun
+        return redirect()->to('user/' . $username);
+    }
+    public function changePassword()
+    {
+        $accountId =  $this->request->getVar('account_id');
+        $newPassword =  $this->request->getVar('password');
+        $username =  $this->request->getVar('user_username');
+        $validatonRules = [
+            'password' => 'required|max_length[255]|min_length[3]',
+            'confirmPassword' => 'required|max_length[255]|matches[password]',
+        ];
+        $data = [
+            'account_id' => $accountId,
+            'account_password' => password_hash($newPassword, PASSWORD_DEFAULT)
+        ];
+        if (!$this->validate($validatonRules)) {
+
+            session()->setFlashdata('errors', $this->validator->listErrors());
+
+            return redirect()->to('user/' . $username)->withInput()->with('validation', $this->validator);
+        }
+        $this->userAccountModel->save($data);
+        session()->setFlashdata('success', 'Password has been changed!');
+        return redirect()->to('user/' . $username);
     }
 }

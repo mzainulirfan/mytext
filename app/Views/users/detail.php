@@ -10,15 +10,15 @@
         <form class="row g-3">
           <div class="col-12">
             <label for="fullname" class="form-label">Fullname</label>
-            <input type="text" class="form-control" readonly value="<?= $userData['user_fullname']; ?>">
+            <input type="text" class="form-control" id="fullname" readonly value="<?= $userData['user_fullname']; ?>">
           </div>
           <div class="col-12">
             <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" readonly value="<?= $userData['user_phone_number']; ?>">
+            <input type="text" class="form-control" id="phone" readonly value="<?= $userData['user_phone_number']; ?>">
           </div>
           <div class="col-12">
             <label for="address" class="form-label">Address</label>
-            <textarea class="form-control" readonly rows="5"><?= $userData['user_address']; ?></textarea>
+            <textarea class="form-control" id="address" readonly rows="5"><?= $userData['user_address']; ?></textarea>
           </div>
         </form>
       </div>
@@ -26,11 +26,32 @@
     <div class="card mb-4">
       <div class="card-header">User account</div>
       <div class="card-body">
+        <?php if ($message = session()->getFlashdata('errors')) : ?>
+          <div class="alert alert-danger" role="alert">
+            <?= $message; ?>
+          </div>
+        <?php elseif ($message = session()->getFlashdata('success')) : ?>
+          <div class="alert alert-success" role="alert">
+            <?= $message; ?>
+          </div>
+        <?php endif; ?>
         <?php if (empty($userByAccountId)) : ?>
           <p class="text-danger">Account not found!</p>
-          <a href="javascript();" class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Create account</a>
+          <a href="javascript();" class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#createUserAccount">Create account</a>
         <?php else : ?>
-          this is account
+          <form class="row g-3">
+            <div class="col-12">
+              <label for="fullname" class="form-label">Email</label>
+              <input type="text" class="form-control" id="fullname" readonly value="<?= $userByAccountId['account_email']; ?>">
+            </div>
+            <div class="col-12">
+              <label for="password" class="form-label">Password</label>
+              <input type="text" class="form-control" id="password" readonly value="******">
+            </div>
+          </form>
+          <div class="mt-3">
+            <a href="javascript();" class="btn btn-primary btn-sm px-4" data-bs-toggle="modal" data-bs-target="#changePassword">Change password</a>
+          </div>
         <?php endif; ?>
       </div>
     </div>
@@ -49,8 +70,8 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!--Create user account Modal-->
+<div class="modal fade" id="createUserAccount" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -59,24 +80,84 @@
       </div>
       <div class="modal-body">
         <form method="post" action="<?= base_url(); ?>user/createAccount">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="user_id" value="<?= $userData['user_id']; ?>">
+          <input type="hidden" name="user_username" value="<?= $userData['user_username']; ?>">
           <div class="mb-3">
             <label for="email" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" name="email" id="email">
+            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('email')) ? 'is-invalid' : '' ?>" name="email" id="email" value="<?= old('email'); ?>">
+            <?php
+            if (session()->has('validation') && ($validation = session('validation'))->hasError('email')) {
+              echo $validation->getError('email');
+            }
+            ?>
           </div>
           <div class="mb-3">
             <label for="password" class="col-form-label">Password:</label>
-            <input type="password" class="form-control" name="password" id="password">
+            <input type="password" class="form-control  <?= (session()->has('validation') && ($validation = session('validation'))->hasError('password')) ? 'is-invalid' : '' ?>" name="password" id="password">
+            <?php
+            if (session()->has('validation') && ($validation = session('validation'))->hasError('password')) {
+              echo $validation->getError('password');
+            }
+            ?>
           </div>
           <div class="mb-3">
             <label for="confirmPassword" class="col-form-label">Confirm Password:</label>
-            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+            <input type="password" class="form-control  <?= (session()->has('validation') && ($validation = session('validation'))->hasError('confirmPassword')) ? 'is-invalid' : '' ?>" name="confirmPassword" id="confirmPassword">
+            <?php
+            if (session()->has('validation') && ($validation = session('validation'))->hasError('confirmPassword')) {
+              echo $validation->getError('confirmPassword');
+            }
+            ?>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary btn-sm px-4">Create</button>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm px-4">Create</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- changer password Modal-->
+<?php if (!empty($userByAccountId)) : ?>
+  <div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Create User Account</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="<?= base_url(); ?>user/changePassword">
+            <?= csrf_field(); ?>
+            <input type="hidden" name="account_id" value="<?= $userByAccountId['account_id']; ?>">
+            <input type="hidden" name="user_username" value="<?= $userData['user_username']; ?>">
+            <div class="mb-3">
+              <label for="password" class="col-form-label">New Password:</label>
+              <input type="password" class="form-control  <?= (session()->has('validation') && ($validation = session('validation'))->hasError('password')) ? 'is-invalid' : '' ?>" name="password" id="password">
+              <?php
+              if (session()->has('validation') && ($validation = session('validation'))->hasError('password')) {
+                echo $validation->getError('password');
+              }
+              ?>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="col-form-label">Confirm Password:</label>
+              <input type="password" class="form-control  <?= (session()->has('validation') && ($validation = session('validation'))->hasError('confirmPassword')) ? 'is-invalid' : '' ?>" name="confirmPassword" id="confirmPassword">
+              <?php
+              if (session()->has('validation') && ($validation = session('validation'))->hasError('confirmPassword')) {
+                echo $validation->getError('confirmPassword');
+              }
+              ?>
+            </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary btn-sm px-4">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
 <?= $this->endSection(); ?>

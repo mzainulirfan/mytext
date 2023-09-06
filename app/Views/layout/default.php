@@ -29,6 +29,7 @@
   </div>
   <script src="<?= base_url(); ?>sb-admin/js/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="<?= base_url(); ?>sb-admin/js/scripts.js"></script>
+  <script src="<?= base_url(); ?>sb-admin/js/myscripts.js"></script>
 </body>
 
 </html>
