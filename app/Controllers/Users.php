@@ -4,13 +4,16 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\UserAccountModel;
 
 class Users extends BaseController
 {
     private $userModel;
+    private $userAccountModel;
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->userAccountModel = new UserAccountModel();
     }
     public function index()
     {
@@ -54,10 +57,17 @@ class Users extends BaseController
     public function detail($username)
     {
         $userByUsername = $this->userModel->where('user_username', $username)->first();
+        $userId = $userByUsername['user_id'];
+        $userByAccountId = $this->userAccountModel->where('account_user_id', $userId)->first();
         $data = [
             'title' => $username,
-            'userData' => $userByUsername
+            'userData' => $userByUsername,
+            'userByAccountId' => $userByAccountId
         ];
         return view('users/detail', $data);
+    }
+    public function createAccount($userId)
+    {
+        
     }
 }

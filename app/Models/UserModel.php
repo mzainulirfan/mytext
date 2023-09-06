@@ -11,5 +11,5 @@ class UserModel extends Model
     protected $allowedFields    = ['user_fullname', 'user_username', 'user_phone_number', 'user_address'];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
 }
