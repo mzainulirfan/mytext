@@ -25,6 +25,11 @@ class CreateUserTable extends Migration
                 'constraint' => 100,
                 'null' => true
             ],
+            'user_gender' => [
+                'type' => 'ENUM',
+                'constraint' => ['male', 'female'],
+                'null' => true
+            ],
             'user_phone_number' => [
                 'type' => 'VARCHAR',
                 'constraint' => 20,

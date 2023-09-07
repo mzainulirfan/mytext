@@ -14,9 +14,11 @@ class Dashboard extends BaseController
     }
     public function index()
     {
-        $userData = $this->userModel->findAll();
+        $countUsers = $this->userModel->countAllResults();
+        $userData = $this->userModel->orderBy('user_id', 'DESC')->findAll(5);
         $data = [
             'title' => 'Dashboard',
+            'countUsers' => $countUsers,
             'userData' => $userData
         ];
         return view('dashboard/index', $data);

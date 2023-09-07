@@ -15,3 +15,4 @@ $routes->post('user', 'Users::index');
 $routes->post('user/createAccount', 'Users::createAccount');
 $routes->post('user/changePassword', 'Users::changePassword');
 $routes->delete('user/(:num)', 'Users::delete/$1');
+$routes->post('user/update', 'Users::update');

@@ -47,7 +47,8 @@ class Users extends BaseController
         $validatonRules = [
             'fullname' => 'required',
             'phone' => 'required|numeric|is_unique[users.user_phone_number]',
-            'address' => 'required'
+            'address' => 'required',
+            'gender' => 'required'
         ];
         $fullname =  $this->request->getVar('fullname');
         $username = url_title($fullname, '-', true) . '-' . getRandomString(20);
@@ -55,9 +56,9 @@ class Users extends BaseController
             'user_fullname' =>  $fullname,
             'user_username' => $username,
             'user_phone_number' =>  $this->request->getVar('phone'),
-            'user_address' =>  $this->request->getVar('address')
+            'user_address' =>  $this->request->getVar('address'),
+            'user_gender' =>  $this->request->getVar('gender')
         ];
-
         if (!$this->validate($validatonRules)) {
             return redirect()->to('user/create')->withInput()->with('validation', $this->validator);
         }
@@ -85,6 +86,42 @@ class Users extends BaseController
             'userByAccountId' => $userByAccountId
         ];
         return view('users/detail', $data);
+    }
+
+    public function update()
+    {
+        $userId =  $this->request->getVar('userId');
+        $username =  $this->request->getVar('username');
+        $phoneNumber =  $this->request->getVar('phone');
+        $userData = $this->userModel->where('user_id', $userId)->first();
+        $userPhoneOld = $userData['user_phone_number'];
+        if ($userPhoneOld === $phoneNumber) {
+            $phoneRoles = 'required|numeric';
+        } else {
+            $phoneRoles = 'required|numeric|is_unique[users.user_phone_number]';
+        }
+
+        $validatonRules = [
+            'fullname' => 'required',
+            'phone' => $phoneRoles,
+            'address' => 'required',
+            'gender' => 'required'
+        ];
+        $data = [
+            'user_id' =>  $userId,
+            'user_fullname' =>  $this->request->getVar('fullname'),
+            'user_phone_number' =>  $phoneNumber,
+            'user_gender' =>  $this->request->getVar('gender'),
+            'user_address' =>  $this->request->getVar('address')
+        ];
+
+        if (!$this->validate($validatonRules)) {
+            session()->setFlashdata('errors', $this->validator->listErrors());
+            return redirect()->to('user/' . $username)->withInput()->with('validation', $this->validator);
+        }
+        $this->userModel->save($data);
+        session()->setFlashdata('success', 'User ' . $username . ' has been updated!');
+        return redirect()->to('user/' . $username);
     }
     public function createAccount()
     {

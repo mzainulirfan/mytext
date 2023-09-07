@@ -31,6 +31,19 @@
             </div>
           </div>
           <div class="col-12">
+            <label for="gender" class="form-label">Gender</label>
+            <div class="d-block">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input <?= (session()->has('validation') && ($validation = session('validation'))->hasError('gender')) ? 'is-invalid' : '' ?>" type="radio" name="gender" id="male" value="male" <?= (old('gender') == 'male') ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="male">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input <?= (session()->has('validation') && ($validation = session('validation'))->hasError('gender')) ? 'is-invalid' : '' ?>" type="radio" name="gender" id="female" value="female" <?= (old('gender') == 'female') ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="female">Female</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
             <label for="address" class="form-label">Address</label>
             <textarea class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'is-invalid' : '' ?>" id="address" name="address" rows="5" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'autofocus' : '' ?>><?= old('address'); ?></textarea>
             <div class="invalid-feedback">

@@ -20,13 +20,12 @@
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-content-center">
     <span><i class="fas fa-table me-1"></i>
-      Data users</span>
+      List users</span>
     <a href="<?= base_url(); ?>user/create" class="btn btn-sm btn-primary px-4">
       <i class="fas fa-plus"></i>
       Create
     </a>
   </div>
-
   <?php if (empty($userData)) : ?>
     <div class="card-body d-flex justify-content-center align-items-center flex-column w-25 mx-auto gap-4">
       <img src="<?= base_url(); ?>sb-admin/assets/img/nodata.svg" width="100px" alt="nodata">
