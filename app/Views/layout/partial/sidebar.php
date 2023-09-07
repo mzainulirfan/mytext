@@ -12,6 +12,10 @@
             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
             Users management
           </a>
+          <a class="nav-link <?= ($uri->getSegment(1) === 'article') ? 'active' : ''; ?>" href="<?= base_url(); ?>article">
+            <div class="sb-nav-link-icon"><i class="fas fa-note-sticky"></i></div>
+            Article management
+          </a>
         </div>
       </div>
       <div class="sb-sidenav-footer">

@@ -73,6 +73,7 @@
             </select>
           </div>
         </form>
+        <p class="text-secondary">total users :<?= $countAllUser; ?></p>
       </div>
     </div>
   <?php endif; ?>

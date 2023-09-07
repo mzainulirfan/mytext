@@ -12,7 +12,7 @@
       <div class="card-body d-flex justify-content-between align-items-end">
         <div>
           <div class="small text-muted">All Users</div>
-          <div class="h3"><?= $countUsers; ?> User</div>
+          <div class="h3 text-success"><?= $countUsers; ?> User</div>
         </div>
         <a href="<?= base_url(); ?>user" class="text-decoration-none text-primary">List users</a>
       </div>
@@ -22,10 +22,10 @@
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-content-center">
     <span><i class="fas fa-table me-1"></i>
-      List users</span>
-    <a href="<?= base_url(); ?>user/create" class="btn btn-sm btn-primary px-4">
-      <i class="fas fa-plus"></i>
-      Create
+      Latest users</span>
+    <a href="<?= base_url(); ?>user" class="btn btn-sm btn-primary px-4">
+      <i class="fas fa-users"></i>
+      See all
     </a>
   </div>
   <?php if (empty($userData)) : ?>
@@ -40,7 +40,7 @@
           <th>No.</th>
           <th>Fullname</th>
           <th>Phone Number</th>
-          <th colspan="2">Created</th>
+          <th>Created</th>
         </thead>
         <tbody>
           <?php $i = 1;
@@ -50,10 +50,6 @@
               <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= $user['user_fullname']; ?></a></td>
               <td><?= $user['user_phone_number']; ?></td>
               <td><?= $user['created_at']; ?></td>
-              <td class="text-end">
-                <?= ($user['is_user_account']) == 0 ? '<a href="#"><i class=\'bx bxs-plus-square text-primary\'></i></a>' : ''; ?>
-                <a href="#"><i class='bx bxs-edit text-dark'></i></a>
-              </td>
             </tr>
           <?php endforeach; ?>
         </tbody>

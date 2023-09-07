@@ -1,4 +1,4 @@
-$("#createUserAccount").on("shown.bs.modal", function () {
+$(".modal").on("shown.bs.modal", function () {
   $(this).find("[autofocus]").focus();
 });
 // custom.js

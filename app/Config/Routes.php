@@ -7,12 +7,18 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Dashboard::index');
 $routes->get('dashboard', 'Dashboard::index');
-$routes->get('user', 'Users::index');
-$routes->get('user/create', 'Users::create');
-$routes->get('user/(:any)', 'Users::detail/$1');
-$routes->post('user/save', 'Users::save');
-$routes->post('user', 'Users::index');
-$routes->post('user/createAccount', 'Users::createAccount');
-$routes->post('user/changePassword', 'Users::changePassword');
-$routes->delete('user/(:num)', 'Users::delete/$1');
-$routes->post('user/update', 'Users::update');
+$routes->group('user', function ($routes) {
+  $routes->get('/', 'Users::index');
+  $routes->get('create', 'Users::create');
+  $routes->get('(:any)', 'Users::detail/$1');
+  $routes->post('save', 'Users::save');
+  $routes->post('/', 'Users::index');
+  $routes->post('createAccount', 'Users::createAccount');
+  $routes->post('changePassword', 'Users::changePassword');
+  $routes->delete('(:num)', 'Users::delete/$1');
+  $routes->post('update', 'Users::update');
+});
+
+$routes->Group('article', function ($routes) {
+  $routes->get('/', 'Articles::index');
+});

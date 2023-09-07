@@ -25,13 +25,15 @@ class Users extends BaseController
             $perPage = session()->get('perPage');
         }
         $userData = $this->userModel->paginate($perPage, 'users');
+        $countAllUser = $this->userModel->countAllResults();
         $currentPage = $this->request->getVar('page_users') ? $this->request->getVar('page_users') : 1;
         $data = [
             'title' => 'User list',
             'userData' => $userData,
             'pager' => $this->userModel->pager,
             'currentPage' => $currentPage,
-            'perPage' => $perPage
+            'perPage' => $perPage,
+            'countAllUser' => $countAllUser
         ];
         return view('users/list', $data);
     }

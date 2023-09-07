@@ -16,6 +16,7 @@ class Userfaker extends Seeder
 				'user_fullname' => $namaGenerate,
 				'user_address' => $faker->address,
 				'user_phone_number' => $faker->phoneNumber,
+				'user_gender' => 'male',
 				'created_at' => date('Y-m-d H:i:s'),
 				'updated_at' => date('Y-m-d H:i:s'),
 			];
