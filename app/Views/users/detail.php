@@ -55,6 +55,17 @@
         <?php endif; ?>
       </div>
     </div>
+    <div class="card mb-4">
+      <div class="card-header">Delete User</div>
+      <div class="card-body">
+        <p> Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
+        <form action="<?= base_url(); ?>user/<?= $userData['user_id']; ?>" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger btn-sm px-4 d-block">Delete</button>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="col-lg-4">
     <div class="card">

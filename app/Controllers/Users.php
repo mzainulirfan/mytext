@@ -57,6 +57,15 @@ class Users extends BaseController
     public function detail($username)
     {
         $userByUsername = $this->userModel->where('user_username', $username)->first();
+
+        if (!$userByUsername) {
+            $data = [
+                'title' => $username,
+                'username' => $username
+            ];
+            return view('errors/nodata', $data);
+        }
+
         $userId = $userByUsername['user_id'];
         $userByAccountId = $this->userAccountModel->where('account_user_id', $userId)->first();
         $data = [
@@ -126,5 +135,12 @@ class Users extends BaseController
         $this->userAccountModel->save($data);
         session()->setFlashdata('success', 'Password has been changed!');
         return redirect()->to('user/' . $username);
+    }
+    public function delete($userId)
+    {
+        $this->userAccountModel->where('account_user_id', $userId)->delete();
+        $this->userModel->delete($userId);
+        session()->setFlashdata('success', 'User has been deleted!');
+        return redirect()->to('user');
     }
 }
