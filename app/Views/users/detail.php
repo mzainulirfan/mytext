@@ -59,11 +59,7 @@
       <div class="card-header">Delete User</div>
       <div class="card-body">
         <p> Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
-        <form action="<?= base_url(); ?>user/<?= $userData['user_id']; ?>" method="post">
-          <?= csrf_field(); ?>
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger btn-sm px-4 d-block">Delete</button>
-        </form>
+        <button type="button" class="btn btn-danger btn-sm px-4 d-block" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
       </div>
     </div>
   </div>
@@ -171,5 +167,29 @@
     </div>
   </div>
 <?php endif; ?>
+
+<!-- delete confirmation modal  -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this data?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+        <form action="<?= base_url(); ?>user/<?= $userData['user_id']; ?>" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <?= $this->endSection(); ?>
