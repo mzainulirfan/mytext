@@ -17,10 +17,28 @@ class Users extends BaseController
     }
     public function index()
     {
-        $userData = $this->userModel->findAll();
+        $perPage = $this->request->getVar('perPage');
+
+        // Cek apakah ada input POST untuk "perPage", jika tidak, gunakan nilai dari sesi
+        if ($perPage) {
+            // Simpan nilai perPage dalam sesi
+            session()->set('perPage', $perPage);
+
+            // Redirect pengguna ke halaman ini dengan metode GET
+            return redirect()->to('user')->withInput(); // Sesuaikan URL dengan URL halaman Anda
+        } else {
+            // Ambil nilai perPage dari sesi jika tidak ada input POST
+            $perPage = session()->get('perPage');
+        }
+
+        $userData = $this->userModel->paginate($perPage, 'users');
+        $currentPage = $this->request->getVar('page_users') ? $this->request->getVar('page_users') : 1;
         $data = [
             'title' => 'User list',
-            'userData' => $userData
+            'userData' => $userData,
+            'pager' => $this->userModel->pager,
+            'currentPage' => $currentPage,
+            'perPage' => $perPage
         ];
         return view('users/list', $data);
     }

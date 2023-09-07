@@ -47,7 +47,7 @@
           <th colspan="2">Created</th>
         </thead>
         <tbody>
-          <?php $i = 1;
+          <?php $i = 1 + ($perPage * ($currentPage - 1));
           foreach ($userData as $user) : ?>
             <tr>
               <td><?= $i++; ?></td>
@@ -62,6 +62,19 @@
           <?php endforeach; ?>
         </tbody>
       </table>
+      <div class="d-flex gap-3">
+        <?= $pager->links('users', 'pagination'); ?>
+        <form action="" method="post" id="perPageForm">
+          <div class="input-group">
+            <select class="form-select form-select-sm" name="perPage" id="perPageSelect">
+              <option value="5" <?= ($perPage == 5) ? 'selected' : ''; ?>>show 5 data per page</option>
+              <option value="10" <?= ($perPage == 10) ? 'selected' : ''; ?>>show 10 data per page</option>
+              <option value="25" <?= ($perPage == 25) ? 'selected' : ''; ?>>show 25 data per page</option>
+              <option value="50" <?= ($perPage == 50) ? 'selected' : ''; ?>>show 50 data per page</option>
+            </select>
+          </div>
+        </form>
+      </div>
     </div>
   <?php endif; ?>
 </div>

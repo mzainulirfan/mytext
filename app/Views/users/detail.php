@@ -96,7 +96,7 @@
           <input type="hidden" name="user_username" value="<?= $userData['user_username']; ?>">
           <div class="mb-3">
             <label for="email" class="col-form-label">Email:</label>
-            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('email')) ? 'is-invalid' : '' ?>" name="email" id="email" value="<?= old('email'); ?>">
+            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('email')) ? 'is-invalid' : '' ?>" name="email" id="email" value="<?= old('email'); ?>" autofocus>
             <?php
             if (session()->has('validation') && ($validation = session('validation'))->hasError('email')) {
               echo $validation->getError('email');
@@ -171,4 +171,5 @@
     </div>
   </div>
 <?php endif; ?>
+
 <?= $this->endSection(); ?>
