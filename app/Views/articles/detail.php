@@ -10,7 +10,7 @@
           <div class="small text-bg-light d-inline px-4 py-1 rounded-1 border border-1">
             <span><?= esc($articleData['article_status']); ?></span>&nbsp;|&nbsp;
             <span><a href="<?= base_url(); ?>user/<?= $articleData['user_username']; ?>" class="text-decoration-none"><?= esc($articleData['user_fullname']); ?></a></span>&nbsp;|&nbsp;
-            <span>category</span> &nbsp;|&nbsp;
+            <span><?= esc($articleData['category_name']); ?></span> &nbsp;|&nbsp;
             <span><?= esc($articleData['created_at']); ?></span>
           </div>
           <article class="mt-4">

@@ -21,7 +21,7 @@ class Articles extends BaseController
         } else {
             $viewPerPage = session()->get('viewPerPage');
         }
-        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->paginate($viewPerPage, 'articles');
+        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->join('categories', 'categories.category_id=articles.article_category_id')->paginate($viewPerPage, 'articles');
         $currentPage = $this->request->getVar('page_articles') ? $this->request->getVar('page_articles') : 1;
         $counAllArticle = $this->articleModel->countAllResults();
         $data = [
@@ -70,7 +70,7 @@ class Articles extends BaseController
 
     public function detail($articleSlug)
     {
-        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->where('article_slug', $articleSlug)->first();
+        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->join('categories', 'categories.category_id=articles.article_category_id')->where('article_slug', $articleSlug)->first();
         $data = [
             'title' => 'Detail article',
             'articleData' => $articleData

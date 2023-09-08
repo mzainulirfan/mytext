@@ -30,7 +30,7 @@
             <div class="small text-bg-light d-inline px-4 py-1 rounded-1 border border-1">
               <span><?= esc($article['article_status']); ?></span>&nbsp;|&nbsp;
               <span><?= esc($article['user_fullname']); ?></span>&nbsp;|&nbsp;
-              <span>category</span> &nbsp;|&nbsp;
+              <span><?= esc($article['category_name']); ?></span> &nbsp;|&nbsp;
               <span><?= esc($article['created_at']); ?></span>
             </div>
             <article class="mt-4">

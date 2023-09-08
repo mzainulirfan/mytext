@@ -19,6 +19,7 @@ class Articles extends Seeder
                 'article_intro' => $introGenerate,
                 'article_content' => $contentGenerate,
                 'article_author_id' => 1,
+                'article_category_id' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
