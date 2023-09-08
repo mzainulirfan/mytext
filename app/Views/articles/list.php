@@ -23,39 +23,28 @@
           Create
         </a>
       </div>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-          <thead>
-            <th>No.</th>
-            <th>Title</th>
-            <th>Created</th>
-            <th>Status</th>
-            <th>Author</th>
-          </thead>
-          <tbody>
-            <?php $i = 1 + ($viewPerPage * ($currentPage - 1));
-            foreach ($articleData as $article) : ?>
-              <tr>
-                <td><?= $i++; ?></td>
-                <td><a href="<?= base_url(); ?>article/<?= $article['article_slug']; ?>" class="text-decoration-none"><?= esc($article['article_title']); ?></a></td>
-                <td><?= esc((new DateTime($article['created_at']))->format('F jS, Y')); ?></td>
-                <td>
-                  <span class="badge text-bg-<?php if ($article['article_status'] == 'draft') {
-                                                echo 'secondary';
-                                              } elseif ($article['article_status'] == 'pending') {
-                                                echo 'warning';
-                                              } else {
-                                                echo 'success';
-                                              } ?>">
-                    <?= esc($article['article_status']); ?>
-                  </span>
-                </td>
-                <td><?= esc($article['user_fullname']); ?></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
+      <?php foreach ($articleData as $article) : ?>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="mb-3"><a href="<?= base_url(); ?>article/<?= $article['article_slug']; ?>" class="text-decoration-none"><?= esc($article['article_title']); ?></a></h4>
+            <div class="small text-bg-light d-inline px-4 py-1 rounded-1 border border-1">
+              <span><?= esc($article['article_status']); ?></span>&nbsp;|&nbsp;
+              <span><?= esc($article['user_fullname']); ?></span>&nbsp;|&nbsp;
+              <span>category</span> &nbsp;|&nbsp;
+              <span><?= esc($article['created_at']); ?></span>
+            </div>
+            <article class="mt-4">
+              <?= esc($article['article_intro']); ?>
+            </article>
+            <div class="mt-4">
+              <a href="<?= base_url(); ?>article/<?= $article['article_slug']; ?>" class="btn btn-sm btn-primary px-4">Detail article</a>
+              <button class="btn btn-sm btn-outline-none px-4">Edit article</button>
+              <button class="btn btn-sm btn-outline-none text-danger px-4">Delete</button>
+
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
       <div class="d-flex gap-3">
         <?= $pager->links('articles', 'pagination'); ?>
         <form action="" method="post" id="perPageForm">

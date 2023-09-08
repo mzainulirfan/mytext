@@ -53,6 +53,7 @@
           <div class="d-grid gap-2">
             <button class="btn btn-outline-secondary" type="submit">Save as Draft</button>
             <button class="btn btn-primary" type="button">Publish</button>
+            <a href="<?= base_url(); ?>article" class="btn btn-outline-none border border-1 border-danger mt-3 text-danger">Cancel</a>
           </div>
         </div>
       </div>

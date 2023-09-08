@@ -26,6 +26,10 @@ class CreateArticleTable extends Migration
                 'is_unique' => true,
                 'null' => true
             ],
+            'article_intro' => [
+                'type' => 'TEXT',
+                'null' => true
+            ],
             'article_content' => [
                 'type' => 'TEXT',
                 'null' => true
