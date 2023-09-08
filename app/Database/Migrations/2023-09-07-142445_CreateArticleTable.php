@@ -46,6 +46,11 @@ class CreateArticleTable extends Migration
                 'default' => 'draft',
                 'null' => true
             ],
+            'article_catogory_id' => [
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => true
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -59,6 +64,7 @@ class CreateArticleTable extends Migration
         ]);
         $this->forge->addKey('article_id', true);
         $this->forge->addForeignKey('article_author_id', 'users', 'user_id');
+        $this->forge->addForeignKey('article_catogory_id', 'categories', 'category_id');
         $this->forge->createTable('articles', true);
     }
 
