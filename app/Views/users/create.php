@@ -45,7 +45,7 @@
           </div>
           <div class="col-12">
             <label for="address" class="form-label">Address</label>
-            <textarea class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'is-invalid' : '' ?>" id="address" name="address" rows="5" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'autofocus' : '' ?>><?= old('address'); ?></textarea>
+            <textarea class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'is-invalid' : '' ?>" id="content" name="address" rows="5" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'autofocus' : '' ?>><?= old('address'); ?></textarea>
             <div class="invalid-feedback">
               <?php
               if (session()->has('validation') && ($validation = session('validation'))->hasError('address')) {

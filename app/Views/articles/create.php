@@ -8,7 +8,7 @@
         <div class="card-header">New Article</div>
         <div class="card-body">
           <?= csrf_field(); ?>
-          <div class="col-lg-12">
+          <div class="col-lg-12 mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" name="title" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('title')) ? 'is-invalid' : '' ?>" value="<?= old('title'); ?>" id=" title">
             <div class="invalid-feedback">
@@ -19,7 +19,15 @@
               ?>
             </div>
           </div>
-          <div class="col-lg-12">
+          <div class="col-lg-12 mb-3">
+            <label for="categories" class="from-label">Categories</label>
+            <select name="categories" class="form-select" id="categories">
+              <?php foreach ($categories as $category) : ?>
+                <option value="<?= esc($category['category_id']); ?>"><?= esc($category['category_name']); ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="col-lg-12 mb-3">
             <label for="preview" class="form-label">Preview</label>
             <textarea class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('preview')) ? 'is-invalid' : '' ?>" name="preview" id="preview" rows="5"><?= old('preview'); ?></textarea>
             <div class="invalid-feedback">
@@ -42,7 +50,6 @@
               ?>
             </div>
           </div>
-
         </div>
       </div>
     </div>

@@ -5,6 +5,11 @@
   <li class="breadcrumb-item"><a href="index.html">Article lists</a></li>
   <li class="breadcrumb-item active">Sidenav Light</li>
 </ol>
+<?php if (session()->getFlashdata('success')) : ?>
+  <div class="alert alert-success" role="alert">
+    <?= session()->getFlashdata('success'); ?>
+  </div>
+<?php endif; ?>
 <div class="card">
   <div class="card-header">Article list</div>
   <div class="card-body">
@@ -34,7 +39,7 @@
               <span><?= esc($article['created_at']); ?></span>
             </div>
             <article class="mt-4">
-              <?= esc($article['article_intro']); ?>
+              <?= $article['article_intro']; ?>
             </article>
             <div class="mt-4">
               <a href="<?= base_url(); ?>article/<?= $article['article_slug']; ?>" class="btn btn-sm btn-primary px-4">Detail article</a>

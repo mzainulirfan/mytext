@@ -12,6 +12,7 @@
   <link href="<?= base_url(); ?>sb-admin/css/styles.css" rel="stylesheet" />
   <script src="<?= base_url(); ?>sb-admin/js/fontawesome/fontawesome.js"></script>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="<?= base_url(); ?>sb-admin/js/ckeEditor/ckeditor.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -31,6 +32,8 @@
   <script src="<?= base_url(); ?>sb-admin/js/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="<?= base_url(); ?>sb-admin/js/scripts.js"></script>
   <script src="<?= base_url(); ?>sb-admin/js/myscripts.js"></script>
+  <script src="<?= base_url(); ?>sb-admin/js/cke.js"></script>
+
 </body>
 
 </html>

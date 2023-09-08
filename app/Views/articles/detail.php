@@ -1,6 +1,11 @@
 <?= $this->extend('layout/default'); ?>
 <?= $this->section('content'); ?>
 <h1 class="mt-4">Detail Article</h1>
+<?php if (session()->getFlashdata('success')) : ?>
+  <div class="alert alert-success" role="alert">
+    <?= session()->getFlashdata('success'); ?>
+  </div>
+<?php endif; ?>
 <div class="mt-4">
   <div class="row">
     <div class="col-lg-8 mb-4">
@@ -14,7 +19,7 @@
             <span><?= esc($articleData['created_at']); ?></span>
           </div>
           <article class="mt-4">
-            <?= esc($articleData['article_content']); ?>
+            <?= $articleData['article_content']; ?>
           </article>
         </div>
       </div>
