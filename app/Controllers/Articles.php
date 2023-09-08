@@ -14,14 +14,14 @@ class Articles extends BaseController
     }
     public function index()
     {
-        $perPage = $this->request->getVar('perPage');
-        if ($perPage) {
-            session()->set('perPage', $perPage);
+        $viewPerPage = $this->request->getVar('viewPerPage');
+        if ($viewPerPage) {
+            session()->set('viewPerPage', $viewPerPage);
             return redirect()->to('article')->withInput(); // Sesuaikan URL dengan URL halaman Anda
         } else {
-            $perPage = session()->get('perPage');
+            $viewPerPage = session()->get('viewPerPage');
         }
-        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->paginate($perPage, 'articles');
+        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->paginate($viewPerPage, 'articles');
         $currentPage = $this->request->getVar('page_articles') ? $this->request->getVar('page_articles') : 1;
         $counAllArticle = $this->articleModel->countAllResults();
         $data = [
@@ -29,7 +29,7 @@ class Articles extends BaseController
             'articleData' => $articleData,
             'pager' => $this->articleModel->pager,
             'currentPage' => $currentPage,
-            'perPage' => $perPage,
+            'viewPerPage' => $viewPerPage,
             'counAllArticle' => $counAllArticle
         ];
         return view('articles/list', $data);

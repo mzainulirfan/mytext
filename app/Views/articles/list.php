@@ -33,7 +33,7 @@
             <th>Author</th>
           </thead>
           <tbody>
-            <?php $i = 1 + ($perPage * ($currentPage - 1));
+            <?php $i = 1 + ($viewPerPage * ($currentPage - 1));
             foreach ($articleData as $article) : ?>
               <tr>
                 <td><?= $i++; ?></td>
@@ -60,11 +60,11 @@
         <?= $pager->links('articles', 'pagination'); ?>
         <form action="" method="post" id="perPageForm">
           <div class="input-group">
-            <select class="form-select form-select-sm" name="perPage" id="perPageSelect">
-              <option value="5" <?= ($perPage == 5) ? 'selected' : ''; ?>>show 5 data per page</option>
-              <option value="10" <?= ($perPage == 10) ? 'selected' : ''; ?>>show 10 data per page</option>
-              <option value="25" <?= ($perPage == 25) ? 'selected' : ''; ?>>show 25 data per page</option>
-              <option value="50" <?= ($perPage == 50) ? 'selected' : ''; ?>>show 50 data per page</option>
+            <select class="form-select form-select-sm" name="viewPerPage" id="perPageSelect">
+              <option value="5" <?= ($viewPerPage == 5) ? 'selected' : ''; ?>>show 5 data per page</option>
+              <option value="10" <?= ($viewPerPage == 10) ? 'selected' : ''; ?>>show 10 data per page</option>
+              <option value="25" <?= ($viewPerPage == 25) ? 'selected' : ''; ?>>show 25 data per page</option>
+              <option value="50" <?= ($viewPerPage == 50) ? 'selected' : ''; ?>>show 50 data per page</option>
             </select>
           </div>
         </form>
