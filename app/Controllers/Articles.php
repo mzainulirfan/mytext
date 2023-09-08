@@ -34,9 +34,43 @@ class Articles extends BaseController
         ];
         return view('articles/list', $data);
     }
+    public function create()
+    {
+        $data = [
+            'title' => 'Create article'
+        ];
+        return view('articles/create', $data);
+    }
+    public function save()
+    {
+
+        $articleTitle = $this->request->getVar('title');
+        $articleSlug = url_title($articleTitle, '-', true) . '-' . getRandomString(20);
+        $articleContent = $this->request->getVar('content');
+
+        $validationRules = [
+            'title' => 'required',
+            'preview' => 'required',
+            'content' => 'required'
+        ];
+        $data = [
+            'article_title' => $articleTitle,
+            'article_slug' => $articleSlug,
+            'article_content' => $articleContent,
+            'article_author_id' => 1,
+        ];
+
+        if (!$this->validate($validationRules)) {
+            return redirect()->to('article/create')->withInput()->with('validation', $this->validator);
+        }
+        $this->articleModel->save($data);
+        session()->setFlashdata('success', 'New Article has been submited!');
+        return redirect()->to('article');
+    }
+
     public function detail($articleSlug)
     {
-        $articleData = $this->articleModel->where('article_slug', $articleSlug)->first();
+        $articleData = $this->articleModel->join('users', 'users.user_id=articles.article_author_id')->where('article_slug', $articleSlug)->first();
         $data = [
             'title' => 'Detail article',
             'articleData' => $articleData

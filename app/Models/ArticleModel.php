@@ -8,7 +8,7 @@ class ArticleModel extends Model
 {
     protected $table            = 'articles';
     protected $primaryKey       = 'article_id';
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['article_title', 'article_slug', 'article_content', 'article_status', 'article_author_id'];
 
     // Dates
     protected $useTimestamps = true;

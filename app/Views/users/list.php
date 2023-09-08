@@ -34,10 +34,10 @@
       <?php endif; ?>
       <div class="mb-3">
         <form method="post" class="row g-3">
-          <div class="col-10">
+          <div class="col-lg-10 col-md-6">
             <input type="text" class="form-control form-control-sm" name="keyword" placeholder="Search here ..." autofocus>
           </div>
-          <div class="col-2 text-end">
+          <div class="col-lg-2 col-md-6 text-end">
             <button type="submit" class="btn btn-primary btn-sm">Search</button>
             <a href="<?= base_url(); ?>user/create" class="btn btn-sm btn-primary">
               <i class="fas fa-plus"></i>
@@ -46,29 +46,31 @@
           </div>
         </form>
       </div>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <th>No.</th>
-          <th>Fullname</th>
-          <th>Phone Number</th>
-          <th colspan="2">Created</th>
-        </thead>
-        <tbody>
-          <?php $i = 1 + ($perPage * ($currentPage - 1));
-          foreach ($userData as $user) : ?>
-            <tr>
-              <td><?= $i++; ?></td>
-              <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= esc($user['user_fullname']); ?></a></td>
-              <td><?= esc($user['user_phone_number']); ?></td>
-              <td><?= esc($user['created_at']); ?></td>
-              <td class="text-end">
-                <?= ($user['is_user_account']) == 0 ? '<a href="#"><i class=\'bx bxs-plus-square text-primary\'></i></a>' : ''; ?>
-                <a href="#"><i class='bx bxs-edit text-dark'></i></a>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+      <div class=" table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <th>No.</th>
+            <th>Fullname</th>
+            <th>Phone Number</th>
+            <th colspan="2">Created</th>
+          </thead>
+          <tbody>
+            <?php $i = 1 + ($perPage * ($currentPage - 1));
+            foreach ($userData as $user) : ?>
+              <tr>
+                <td><?= $i++; ?></td>
+                <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= esc($user['user_fullname']); ?></a></td>
+                <td><?= esc($user['user_phone_number']); ?></td>
+                <td><?= esc($user['created_at']); ?></td>
+                <td class="text-end">
+                  <?= ($user['is_user_account']) == 0 ? '<a href="#"><i class=\'bx bxs-plus-square text-primary\'></i></a>' : ''; ?>
+                  <a href="#"><i class='bx bxs-edit text-dark'></i></a>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
       <div class="d-flex gap-3">
         <?= $pager->links('users', 'pagination'); ?>
         <form action="" method="post" id="perPageForm">

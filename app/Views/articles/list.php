@@ -17,37 +17,45 @@
         </a>
       </div>
     <?php else : ?>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <th>No.</th>
-          <th>Title</th>
-          <th>Created</th>
-          <th>Status</th>
-          <th>Author</th>
-        </thead>
-        <tbody>
-          <?php $i = 1 + ($perPage * ($currentPage - 1));
-          foreach ($articleData as $article) : ?>
-            <tr>
-              <td><?= $i++; ?></td>
-              <td><a href="<?= base_url(); ?>article/<?= $article['article_slug']; ?>" class="text-decoration-none"><?= esc($article['article_title']); ?></a></td>
-              <td><?= esc((new DateTime($article['created_at']))->format('F jS, Y')); ?></td>
-              <td>
-                <span class="badge text-bg-<?php if ($article['article_status'] == 'draft') {
-                                              echo 'secondary';
-                                            } elseif ($article['article_status'] == 'pending') {
-                                              echo 'warning';
-                                            } else {
-                                              echo 'success';
-                                            } ?>">
-                  <?= esc($article['article_status']); ?>
-                </span>
-              </td>
-              <td><?= esc($article['user_fullname']); ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+      <div class="mb-3 text-end">
+        <a href="<?= base_url(); ?>article/create" class="btn btn-sm btn-primary">
+          <i class="fas fa-plus"></i>
+          Create
+        </a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <th>No.</th>
+            <th>Title</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Author</th>
+          </thead>
+          <tbody>
+            <?php $i = 1 + ($perPage * ($currentPage - 1));
+            foreach ($articleData as $article) : ?>
+              <tr>
+                <td><?= $i++; ?></td>
+                <td><a href="<?= base_url(); ?>article/<?= $article['article_slug']; ?>" class="text-decoration-none"><?= esc($article['article_title']); ?></a></td>
+                <td><?= esc((new DateTime($article['created_at']))->format('F jS, Y')); ?></td>
+                <td>
+                  <span class="badge text-bg-<?php if ($article['article_status'] == 'draft') {
+                                                echo 'secondary';
+                                              } elseif ($article['article_status'] == 'pending') {
+                                                echo 'warning';
+                                              } else {
+                                                echo 'success';
+                                              } ?>">
+                    <?= esc($article['article_status']); ?>
+                  </span>
+                </td>
+                <td><?= esc($article['user_fullname']); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
       <div class="d-flex gap-3">
         <?= $pager->links('articles', 'pagination'); ?>
         <form action="" method="post" id="perPageForm">

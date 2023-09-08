@@ -55,25 +55,27 @@
     </div>
   <?php else : ?>
     <div class="card-body">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <th>No.</th>
-          <th>Fullname</th>
-          <th>Phone Number</th>
-          <th>Created</th>
-        </thead>
-        <tbody>
-          <?php $i = 1;
-          foreach ($userData as $user) : ?>
-            <tr>
-              <td><?= $i++; ?></td>
-              <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= esc($user['user_fullname']); ?></a></td>
-              <td><?= esc($user['user_phone_number']); ?></td>
-              <td><?= esc($user['created_at']); ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <th>No.</th>
+            <th>Fullname</th>
+            <th>Phone Number</th>
+            <th>Created</th>
+          </thead>
+          <tbody>
+            <?php $i = 1;
+            foreach ($userData as $user) : ?>
+              <tr>
+                <td><?= $i++; ?></td>
+                <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= esc($user['user_fullname']); ?></a></td>
+                <td><?= esc($user['user_phone_number']); ?></td>
+                <td><?= esc($user['created_at']); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   <?php endif; ?>
 </div>
