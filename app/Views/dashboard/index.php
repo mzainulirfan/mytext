@@ -1,13 +1,9 @@
 <?= $this->extend('layout/default'); ?>
 <?= $this->section('content'); ?>
 <h1 class="mt-4">Dashboard</h1>
-<ol class="breadcrumb mb-4">
-  <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-  <li class="breadcrumb-item active">Sidenav Light</li>
-</ol>
 <div class="row">
   <div class="col-lg-4 mb-4">
-    <!-- Billing card 1-->
+    <!-- Count user-->
     <div class="card h-100 border-start-lg border-start-primary">
       <div class="card-body d-flex justify-content-between align-items-end">
         <div>
@@ -15,6 +11,30 @@
           <div class="h3 text-success"><?= $countUsers; ?> User</div>
         </div>
         <a href="<?= base_url(); ?>user" class="text-decoration-none text-primary">List users</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-4">
+    <!-- Count article-->
+    <div class="card h-100 border-start-lg border-start-primary">
+      <div class="card-body d-flex justify-content-between align-items-end">
+        <div>
+          <div class="small text-muted">All articles</div>
+          <div class="h3 text-danger"><?= $countArticles; ?> articles</div>
+        </div>
+        <a href="<?= base_url(); ?>article" class="text-decoration-none text-primary">List articles</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 mb-4">
+    <!-- Count author-->
+    <div class="card h-100 border-start-lg border-start-primary">
+      <div class="card-body d-flex justify-content-between align-items-end">
+        <div>
+          <div class="small text-muted">All author</div>
+          <div class="h3 text-info">20 author</div>
+        </div>
+        <a href="<?= base_url(); ?>author" class="text-decoration-none text-primary">List author</a>
       </div>
     </div>
   </div>
@@ -47,9 +67,9 @@
           foreach ($userData as $user) : ?>
             <tr>
               <td><?= $i++; ?></td>
-              <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= $user['user_fullname']; ?></a></td>
-              <td><?= $user['user_phone_number']; ?></td>
-              <td><?= $user['created_at']; ?></td>
+              <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= esc($user['user_fullname']); ?></a></td>
+              <td><?= esc($user['user_phone_number']); ?></td>
+              <td><?= esc($user['created_at']); ?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>

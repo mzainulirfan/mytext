@@ -24,7 +24,15 @@ class Users extends BaseController
         } else {
             $perPage = session()->get('perPage');
         }
-        $userData = $this->userModel->paginate($perPage, 'users');
+
+        $keyword = $this->request->getVar('keyword');
+        if ($keyword) {
+            $userData = $this->userModel->search($keyword)->paginate($perPage, 'users');
+            // return redirect()->to('user')->withInput(); // Sesuaikan URL dengan URL halaman Anda
+        } else {
+            $userData = $this->userModel->paginate($perPage, 'users');
+        }
+        // $userData = $this->userModel->paginate($perPage, 'users');
         $countAllUser = $this->userModel->countAllResults();
         $currentPage = $this->request->getVar('page_users') ? $this->request->getVar('page_users') : 1;
         $data = [

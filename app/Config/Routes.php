@@ -21,4 +21,6 @@ $routes->group('user', function ($routes) {
 
 $routes->Group('article', function ($routes) {
   $routes->get('/', 'Articles::index');
+  $routes->post('/', 'Articles::index');
+  $routes->get('(:any)', 'Articles::detail/$1');
 });

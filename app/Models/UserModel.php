@@ -19,4 +19,8 @@ class UserModel extends Model
         ->limit($limit)
             ->findAll();
     }
+    public function search($keyword)
+    {
+        return $this->table('users')->like('user_fullname', $keyword)->orLike('user_username', $keyword);
+    }
 }

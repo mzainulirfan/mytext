@@ -18,19 +18,19 @@
         <form class="row g-3">
           <div class="col-12">
             <label for="fullname" class="form-label">Fullname</label>
-            <input type="text" class="form-control" id="fullname" readonly value="<?= $userData['user_fullname']; ?>">
+            <input type="text" class="form-control" id="fullname" readonly value="<?= esc($userData['user_fullname']); ?>">
           </div>
           <div class="col-12">
             <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control" id="phone" readonly value="<?= $userData['user_phone_number']; ?>">
+            <input type="text" class="form-control" id="phone" readonly value="<?= esc($userData['user_phone_number']); ?>">
           </div>
           <div class="col-12">
             <label for="gender" class="form-label">Gender</label>
-            <input type="text" class="form-control" id="gender" readonly value="<?= $userData['user_gender']; ?>">
+            <input type="text" class="form-control" id="gender" readonly value="<?= esc($userData['user_gender']); ?>">
           </div>
           <div class="col-12">
             <label for="address" class="form-label">Address</label>
-            <textarea class="form-control" id="address" readonly rows="5"><?= $userData['user_address']; ?></textarea>
+            <textarea class="form-control" id="address" readonly rows="5"><?= esc($userData['user_address']); ?></textarea>
           </div>
         </form>
         <div class="mt-3">
@@ -48,7 +48,7 @@
           <form class="row g-3">
             <div class="col-12">
               <label for="fullname" class="form-label">Email</label>
-              <input type="text" class="form-control" id="fullname" readonly value="<?= $userByAccountId['account_email']; ?>">
+              <input type="text" class="form-control" id="fullname" readonly value="<?= esc($userByAccountId['account_email']); ?>">
             </div>
             <div class="col-12">
               <label for="password" class="form-label">Password</label>
@@ -94,8 +94,8 @@
       <div class="modal-body">
         <form method="post" action="<?= base_url(); ?>user/createAccount">
           <?= csrf_field(); ?>
-          <input type="hidden" name="user_id" value="<?= $userData['user_id']; ?>">
-          <input type="hidden" name="user_username" value="<?= $userData['user_username']; ?>">
+          <input type="hidden" name="user_id" value="<?= esc($userData['user_id']); ?>">
+          <input type="hidden" name="user_username" value="<?= esc($userData['user_username']); ?>">
           <div class="mb-3">
             <label for="email" class="col-form-label">Email:</label>
             <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('email')) ? 'is-invalid' : '' ?>" name="email" id="email" value="<?= old('email'); ?>" autofocus>
@@ -144,8 +144,8 @@
         <div class="modal-body">
           <form method="post" action="<?= base_url(); ?>user/changePassword">
             <?= csrf_field(); ?>
-            <input type="hidden" name="account_id" value="<?= $userByAccountId['account_id']; ?>">
-            <input type="hidden" name="user_username" value="<?= $userData['user_username']; ?>">
+            <input type="hidden" name="account_id" value="<?= esc($userByAccountId['account_id']); ?>">
+            <input type="hidden" name="user_username" value="<?= esc($userData['user_username']); ?>">
             <div class="mb-3">
               <label for="password" class="col-form-label">New Password:</label>
               <input type="password" class="form-control  <?= (session()->has('validation') && ($validation = session('validation'))->hasError('password')) ? 'is-invalid' : '' ?>" name="password" id="password">
@@ -209,11 +209,11 @@
       <div class="modal-body">
         <form class="row g-3" method="post" action="<?= base_url(); ?>user/update">
           <?= csrf_field(); ?>
-          <input type="hidden" name="userId" value="<?= $userData['user_id']; ?>">
-          <input type="hidden" name="username" value="<?= $userData['user_username']; ?>">
+          <input type="hidden" name="userId" value="<?= esc($userData['user_id']); ?>">
+          <input type="hidden" name="username" value="<?= esc($userData['user_username']); ?>">
           <div class="col-12">
             <label for="fullname" class="form-label">Fullname</label>
-            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('fullname')) ? 'is-invalid' : '' ?>" value="<?= (old('fullname')) ? old('fullname') : $userData['user_fullname']; ?>" placeholder="ex: zara naila" name="fullname" id="fullname" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('fullname')) ? 'autofocus' : '' ?> <?= (old('fullname')) ? '' : 'autofocus'; ?>>
+            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('fullname')) ? 'is-invalid' : '' ?>" value="<?= (old('fullname')) ? old('fullname') : esc($userData['user_fullname']); ?>" placeholder="ex: zara naila" name="fullname" id="fullname" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('fullname')) ? 'autofocus' : '' ?> <?= (old('fullname')) ? '' : 'autofocus'; ?>>
             <div class="invalid-feedback">
               <?php
               if (session()->has('validation') && ($validation = session('validation'))->hasError('fullname')) {
@@ -224,7 +224,7 @@
           </div>
           <div class="col-12">
             <label for="phone" class="form-label">Phone</label>
-            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('phone')) ? 'is-invalid' : '' ?>" value="<?= (old('phone')) ? old('phone') : $userData['user_phone_number']; ?>" id="phone" name="phone" placeholder="ex: 087378393030" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('phone')) ? 'autofocus' : '' ?>>
+            <input type="text" class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('phone')) ? 'is-invalid' : '' ?>" value="<?= (old('phone')) ? old('phone') : esc($userData['user_phone_number']); ?>" id="phone" name="phone" placeholder="ex: 087378393030" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('phone')) ? 'autofocus' : '' ?>>
             <div class="invalid-feedback">
               <?php
               if (session()->has('validation') && ($validation = session('validation'))->hasError('phone')) {
@@ -248,7 +248,7 @@
           </div>
           <div class="col-12">
             <label for="address" class="form-label">Address</label>
-            <textarea class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'is-invalid' : '' ?>" id="address" name="address" rows="5" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'autofocus' : '' ?>><?= (old('address')) ? old('address') : $userData['user_address']; ?></textarea>
+            <textarea class="form-control <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'is-invalid' : '' ?>" id="address" name="address" rows="5" <?= (session()->has('validation') && ($validation = session('validation'))->hasError('address')) ? 'autofocus' : '' ?>><?= (old('address')) ? old('address') : esc($userData['user_address']); ?></textarea>
             <div class="invalid-feedback">
               <?php
               if (session()->has('validation') && ($validation = session('validation'))->hasError('address')) {

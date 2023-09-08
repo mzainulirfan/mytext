@@ -1,10 +1,6 @@
 <?= $this->extend('layout/default'); ?>
 <?= $this->section('content'); ?>
 <h1 class="mt-4">User lists</h1>
-<ol class="breadcrumb mb-4">
-  <li class="breadcrumb-item"><a href="index.html">User lists</a></li>
-  <li class="breadcrumb-item active">Sidenav Light</li>
-</ol>
 <div class="card mb-4">
   <div class="card-body">
     This page is an example of using the light side navigation option. By appending the
@@ -19,17 +15,15 @@
 
 <div class="card mb-4">
   <div class="card-header d-flex justify-content-between align-content-center">
-    <span><i class="fas fa-table me-1"></i>
-      List users</span>
-    <a href="<?= base_url(); ?>user/create" class="btn btn-sm btn-primary px-4">
-      <i class="fas fa-plus"></i>
-      Create
-    </a>
+    <span><i class="fas fa-table me-1"></i>List users</span>
   </div>
   <?php if (empty($userData)) : ?>
     <div class="card-body d-flex justify-content-center align-items-center flex-column w-25 mx-auto gap-4">
       <img src="<?= base_url(); ?>sb-admin/assets/img/nodata.svg" width="100px" alt="nodata">
-      <a href="<?= base_url(); ?>user/create" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&nbsp;Create new user</a>
+      <a href="<?= base_url(); ?>user/create" class="btn btn-sm btn-primary">
+        <i class="fas fa-plus"></i>
+        Create
+      </a>
     </div>
   <?php else : ?>
     <div class="card-body">
@@ -38,6 +32,20 @@
           <?= session()->getFlashdata('success'); ?>
         </div>
       <?php endif; ?>
+      <div class="mb-3">
+        <form method="post" class="row g-3">
+          <div class="col-10">
+            <input type="text" class="form-control form-control-sm" name="keyword" placeholder="Search here ..." autofocus>
+          </div>
+          <div class="col-2 text-end">
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            <a href="<?= base_url(); ?>user/create" class="btn btn-sm btn-primary">
+              <i class="fas fa-plus"></i>
+              Create
+            </a>
+          </div>
+        </form>
+      </div>
       <table class="table table-bordered table-hover">
         <thead>
           <th>No.</th>
@@ -50,9 +58,9 @@
           foreach ($userData as $user) : ?>
             <tr>
               <td><?= $i++; ?></td>
-              <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= $user['user_fullname']; ?></a></td>
-              <td><?= $user['user_phone_number']; ?></td>
-              <td><?= $user['created_at']; ?></td>
+              <td><a href="<?= base_url(); ?>user/<?= $user['user_username']; ?>" class="text-decoration-none text-dark"><?= esc($user['user_fullname']); ?></a></td>
+              <td><?= esc($user['user_phone_number']); ?></td>
+              <td><?= esc($user['created_at']); ?></td>
               <td class="text-end">
                 <?= ($user['is_user_account']) == 0 ? '<a href="#"><i class=\'bx bxs-plus-square text-primary\'></i></a>' : ''; ?>
                 <a href="#"><i class='bx bxs-edit text-dark'></i></a>
