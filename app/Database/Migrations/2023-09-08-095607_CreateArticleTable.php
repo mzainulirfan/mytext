@@ -52,6 +52,10 @@ class CreateArticleTable extends Migration
                 'unsigned' => true,
                 'null' => true
             ],
+            'publish_at' => [
+                'type' => 'DATETIME',
+                'null' => true
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

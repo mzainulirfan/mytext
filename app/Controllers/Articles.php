@@ -86,4 +86,23 @@ class Articles extends BaseController
         ];
         return view('articles/detail', $data);
     }
+    public function delete($articleId)
+    {
+        $this->articleModel->where('article_id', $articleId)->delete();
+        $this->articleModel->delete($articleId);
+        session()->setFlashdata('success', 'Article has been deleted!');
+        return redirect()->to('article');
+    }
+    public function publish($articleId)
+    {
+        $articleSlug = $this->request->getVar('slug');
+        $data = [
+            'article_id' => $articleId,
+            'article_status' => 'publish',
+            'publish_at' => date('Y-m-d H:i:s')
+        ];
+        $this->articleModel->save($data);
+        session()->setFlashdata('success', 'Article has been publish successfully!');
+        return redirect()->to('article/' . $articleSlug);
+    }
 }

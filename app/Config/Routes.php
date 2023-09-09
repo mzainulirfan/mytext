@@ -25,4 +25,6 @@ $routes->Group('article', function ($routes) {
   $routes->post('save', 'Articles::save');
   $routes->post('/', 'Articles::index');
   $routes->get('(:any)', 'Articles::detail/$1');
+  $routes->delete('(:num)', 'Articles::delete/$1');
+  $routes->post('(:any)', 'Articles::publish/$1');
 });
